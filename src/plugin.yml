@@ -10,3 +10,9 @@ commands:
     description: Main command
     usage: See /<command>
     permission: pm.basic
+
+permissions:
+  pm.*:
+    children:
+      pm.basic: true
+      pm.info: true
