@@ -1,0 +1,6 @@
+main: ledennis32.mypluginmanager.MyPluginManager
+
+name: myPluginManager
+author: LeDennis32
+version: 2.0
+description: Plugin for managing your plugins.
