@@ -96,6 +96,28 @@ public class MyPluginManager extends JavaPlugin {
 						noPermission(sender);
 					}
 					
+				} else if(args[0].equalsIgnoreCase("reload")) {
+					
+					if(sender.hasPermission("pm.reload")) {
+						
+						Plugin plugin = findPlugin(args[1]);
+						if(plugin != null) {
+							
+							if(plugin.isEnabled()) {
+								getPluginManager().disablePlugin(plugin);
+							}
+							getPluginManager().enablePlugin(plugin);
+							
+							sender.sendMessage(prefix + "Plugin §a" + plugin.getName() + " §7reloaded.");
+							
+						} else {
+							plugin404(sender);
+						}
+						
+					} else {
+						noPermission(sender);
+					}
+					
 				} else {
 					syntax(sender);
 				}
