@@ -212,7 +212,12 @@ public class MyPluginManager extends JavaPlugin {
 	}
 	
 	private static void syntax(CommandSender sender) {
-		sender.sendMessage(prefix + "There is no syntax help available right now.");
+		sender.sendMessage(prefix + "Syntax help for §amyPluginManager§7:");
+		sender.sendMessage("§a/pm info <plugin> §7- §eshow information about a plugin");
+		sender.sendMessage("§a/pm reload <plugin> §7- §ereload a single plugin");
+		sender.sendMessage("§a/pm enable <plugin> §7- §eenable a single plugin");
+		sender.sendMessage("§a/pm disable <plugin> §7- §edisable a single plugin");
+		sender.sendMessage("§a/pm load <plugin file> §7- §eload a new plugin");
 	}
 	
 	private static void noPermission(CommandSender sender) {
