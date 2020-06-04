@@ -60,6 +60,34 @@ public class MyPluginManager extends JavaPlugin {
 										    	? "§cnone"
 										    	: "§a" + plugin.getDescription().getDescription()));
 							
+							if(plugin.getDescription().getDepend().size() > 1) {
+								String msg = "§7Dependencies: ";
+								for(String depend : plugin.getDescription().getDepend()) {
+									msg += (getPluginManager().isPluginEnabled(depend) ? "§a" : "§c") + depend + "§7, ";
+								}
+								msg = msg.trim().substring(0, msg.length() - 2);
+								sender.sendMessage(msg);
+							} else if(plugin.getDescription().getDepend().size() > 0) {
+								String depend = plugin.getDescription().getDepend().get(0);
+								sender.sendMessage("§7Dependency: " + (getPluginManager().isPluginEnabled(depend) ? "§a" : "§c") + depend);
+							} else {
+								sender.sendMessage("§7Dependencies: §cnone");
+							}
+							
+							if(plugin.getDescription().getSoftDepend().size() > 1) {
+								String msg = "§7Soft Dependencies: ";
+								for(String depend : plugin.getDescription().getSoftDepend()) {
+									msg += (getPluginManager().isPluginEnabled(depend) ? "§a" : "§c") + depend + "§7, ";
+								}
+								msg = msg.trim().substring(0, msg.length() - 2);
+								sender.sendMessage(msg);
+							} else if(plugin.getDescription().getSoftDepend().size() > 0) {
+								String depend = plugin.getDescription().getSoftDepend().get(0);
+								sender.sendMessage("§7Soft Dependency: " + (getPluginManager().isPluginEnabled(depend) ? "§a" : "§c") + depend);
+							} else {
+								sender.sendMessage("§7Soft Dependencies: §cnone");
+							}
+							
 						} else {
 							plugin404(sender);
 						}
