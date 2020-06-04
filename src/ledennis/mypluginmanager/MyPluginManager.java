@@ -1,10 +1,15 @@
 package ledennis.mypluginmanager;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.InvalidDescriptionException;
+import org.bukkit.plugin.InvalidPluginException;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.UnknownDependencyException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MyPluginManager extends JavaPlugin {
@@ -156,6 +161,38 @@ public class MyPluginManager extends JavaPlugin {
 							
 						} else {
 							plugin404(sender);
+						}
+						
+					} else {
+						noPermission(sender);
+					}
+					
+				} else if(args[0].equalsIgnoreCase("load")) {
+					
+					if(sender.hasPermission("pm.load")) {
+						
+						String name = args[1];
+						if(!name.endsWith(".jar")) name += ".jar";
+						
+						File file = new File("plugins", name);
+						
+						if(!file.exists()) {
+							sender.sendMessage(prefix + "That file doesn't exist.");
+							return true;
+						}
+						
+						if(!file.isFile()) {
+							sender.sendMessage(prefix + "That file is a directory.");
+							return true;
+						}
+						
+						try {
+							Plugin plugin = getPluginManager().loadPlugin(file);
+							sender.sendMessage(prefix + "Plugin §a" + plugin.getName() + " §7loaded.");
+						} catch (UnknownDependencyException | InvalidPluginException | InvalidDescriptionException e) {
+							e.printStackTrace();
+							sender.sendMessage(prefix + "§cAn unexpected error occured.");
+							return true;
 						}
 						
 					} else {
