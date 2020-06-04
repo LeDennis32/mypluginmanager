@@ -118,6 +118,28 @@ public class MyPluginManager extends JavaPlugin {
 						noPermission(sender);
 					}
 					
+				} else if(args[0].equalsIgnoreCase("enable")) {
+					
+					if(sender.hasPermission("pm.enable")) {
+						
+						Plugin plugin = findPlugin(args[1]);
+						if(plugin != null) {
+							
+							if(plugin.isEnabled()) {
+								sender.sendMessage(prefix + "The plugin §a" + plugin.getName() + " §7is already enabled.");
+							} else {
+								getPluginManager().enablePlugin(plugin);
+								sender.sendMessage(prefix + "Plugin §a" + plugin.getName() + " §7enabled.");
+							}
+							
+						} else {
+							plugin404(sender);
+						}
+						
+					} else {
+						noPermission(sender);
+					}
+					
 				} else {
 					syntax(sender);
 				}
